@@ -118,7 +118,7 @@ public final class PackageURLBuilder {
      */
     public PackageURLBuilder withQualifier(String key, String value) {
         if (qualifiers == null) {
-            qualifiers = new TreeMap<>();
+            qualifiers = new TreeMap<String,String>();
         }
         qualifiers.put(key, value);
         return this;

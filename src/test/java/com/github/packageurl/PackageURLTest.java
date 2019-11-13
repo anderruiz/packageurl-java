@@ -32,6 +32,7 @@ import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -95,11 +96,11 @@ public class PackageURLTest {
             if (qualifiers != null) {
                 Assert.assertNotNull(purl.getQualifiers());
                 Assert.assertEquals(qualifiers.length(), purl.getQualifiers().size());
-                qualifiers.keySet().forEach((key) -> {
-                    String value = qualifiers.getString(key);
+                for (String key : qualifiers.keySet()) {
+                	String value = qualifiers.getString(key);
                     Assert.assertTrue(purl.getQualifiers().containsKey(key));
                     Assert.assertEquals(value, purl.getQualifiers().get(key));
-                });
+				}
             }
             Assert.assertEquals(cpurlString, purl.canonicalize());
         }
@@ -127,11 +128,7 @@ public class PackageURLTest {
 
             TreeMap<String, String> map = null;
             if (qualifiers != null) {
-                map = qualifiers.toMap().entrySet().stream().collect(
-                        TreeMap<String, String>::new,
-                        (qmap, entry) -> qmap.put(entry.getKey(), (String) entry.getValue()),
-                        TreeMap<String, String>::putAll
-                );
+            	map = new TreeMap((Map)qualifiers.toMap());
             }
 
             if (invalid) {
@@ -156,11 +153,11 @@ public class PackageURLTest {
             if (qualifiers != null) {
                 Assert.assertNotNull(purl.getQualifiers());
                 Assert.assertEquals(qualifiers.length(), purl.getQualifiers().size());
-                qualifiers.keySet().forEach((key) -> {
-                    String value = qualifiers.getString(key);
+                for (String key : qualifiers.keySet()) {
+                	String value = qualifiers.getString(key);
                     Assert.assertTrue(purl.getQualifiers().containsKey(key));
                     Assert.assertEquals(value, purl.getQualifiers().get(key));
-                });
+				}
             }
         }
     }
